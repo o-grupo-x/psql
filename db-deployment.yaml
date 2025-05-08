@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: app-presente-db
-  namespace: production-app-presente
+  namespace: stage-app-presente
   labels:
     app: app-presente-db
 spec:
@@ -11,32 +11,35 @@ spec:
     matchLabels:
       app: app-presente-db
   template:
-    metadata:
-      labels:
-        app: app-presente-db
-    spec:
-      containers:
-      - name: postgres
-        image: guilherme310402/app_presente_db:latest
-        ports:
-        - containerPort: 5432
-        env:
-        - name: POSTGRES_USER
-          valueFrom:
-            secretKeyRef:
-              name: postgres-credentials
-              key: postgres-user
-        - name: POSTGRES_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: postgres-credentials
-              key: postgres-password
-        - name: POSTGRES_DB
-          value: app_presente
-        volumeMounts:
+    metadata **template:
+      metadata:
+        labels:
+          app: app-presente-db
+      spec:
+        containers:
+        - name: postgres
+          image: guilherme310402/app_presente_db:latest
+          ports:
+          - containerPort: 5432
+          env:
+          - name: POSTGRES_USER
+            valueFrom:
+              secretKeyRef:
+                name: postgres-credentials
+                key: postgres-user
+          - name: POSTGRES_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: postgres-credentials
+                key: postgres-password
+          - name: POSTGRES_DB
+            value: app_presente
+          - name: PGDATA
+            value: /var/lib/postgresql/data/pgdata
+          volumeMounts:
+          - name: postgres-storage
+            mountPath: /var/lib/postgresql/data
+        volumes:
         - name: postgres-storage
-          mountPath: /var/lib/postgresql/data
-      volumes:
-      - name: postgres-storage
-        persistentVolumeClaim:
-          claimName: postgres-pvc
+          persistentVolumeClaim:
+            claimName: postgres-pvc
