@@ -11,7 +11,7 @@ env:
   PROJECT_ID: app-chamada-5706
   ZONE: us-central1-a
   CLUSTER_NAME: app-prod-1720e7a1
-  NAMESPACE: production-app-presente
+  NAMESPACE: production-app-production
 
 jobs:
   deploy-db:
