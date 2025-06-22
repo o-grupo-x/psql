@@ -12,7 +12,7 @@ env:
   CLUSTER_NAME: app-chamada-stage
   ZONE: us-west1-a
   REGION: us-west1
-  NAMESPACE: app-chamada-stage
+  NAMESPACE: stage-app-presente
 
 jobs:
   deploy-db:
