@@ -1,4 +1,4 @@
-name: Deploy PostgreSQL
+name: Deploy PostgreSQL (Stage)
 
 on:
   push:
@@ -8,10 +8,11 @@ on:
     branches: [main, dev]
 
 env:
-  PROJECT_ID: app-chamada-5706
-  ZONE: us-central1-a
-  CLUSTER_NAME: app-prod-fa395f7c
-  NAMESPACE: app-chamada-production
+  PROJECT_ID: app-chamada-stage
+  CLUSTER_NAME: app-chamada-stage
+  ZONE: us-west1-a
+  REGION: us-west1
+  NAMESPACE: app-chamada-stage
 
 jobs:
   deploy-db:
@@ -46,16 +47,16 @@ jobs:
 
       - name: Deploy Database Secrets
         run: |
-          kubectl apply -f production/db-secret.yaml
+          kubectl apply -f stage/db-secret.yaml -n ${{ env.NAMESPACE }}
 
       - name: Deploy Persistent Volume Claim
         run: |
-          kubectl apply -f production/db-pvc.yaml
+          kubectl apply -f stage/db-pvc.yaml -n ${{ env.NAMESPACE }}
 
       - name: Deploy Database Service
         run: |
-          kubectl apply -f production/db-service.yaml
+          kubectl apply -f stage/db-service.yaml -n ${{ env.NAMESPACE }}
 
       - name: Deploy Database Deployment
         run: |
-          kubectl apply -f production/db-deployment.yaml
+          kubectl apply -f stage/db-deployment.yaml -n ${{ env.NAMESPACE }}
