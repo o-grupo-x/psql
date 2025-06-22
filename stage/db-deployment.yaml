@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: app-presente-db
-  namespace: app-chamada-production
+  namespace: stage-app-presente
   labels:
     app: app-presente-db
 spec:
