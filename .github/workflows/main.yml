@@ -10,7 +10,7 @@ on:
 env:
   PROJECT_ID: app-chamada-5706
   ZONE: us-central1-a
-  CLUSTER_NAME: app-prod-fa395f7c
+  CLUSTER_NAME: app-prod-56b02c6e
   NAMESPACE: app-chamada-production
 
 jobs:
